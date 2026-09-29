@@ -193,11 +193,46 @@ h2 {
     transform: translateX(100%);
 }
 
-.member-card span {
+.member-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.member-name {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     letter-spacing: 0.1rem;
     color: var(--text-primary);
+}
+
+.member-nickname {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
+.instagram-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent-gold);
+    border-radius: 20px;
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05rem;
+}
+
+.instagram-btn:hover {
+    background: var(--accent-gold);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
 }
 
 .laws-list {
