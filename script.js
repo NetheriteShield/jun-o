@@ -1,46 +1,136 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navButtons = document.querySelectorAll('.nav-btn');
+
+    /* ── TAB SWITCHING ─────────────────────────── */
+    const navBtns = document.querySelectorAll('.nav-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    navButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons and tabs
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(tab => tab.classList.remove('active'));
-
-            // Add active class to clicked button
-            button.classList.add('active');
-
-            // Show corresponding tab content
-            const targetId = button.getAttribute('data-target');
-            const targetContent = document.getElementById(targetId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            const target = document.getElementById(btn.dataset.target);
+            if (target) target.classList.add('active');
         });
     });
 
-    // Optional: Add a subtle entrance animation for the members cards when they appear
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    /* ── CARD ENTRANCE ANIMATION ───────────────── */
+    const cards = document.querySelectorAll('.member-card');
 
-    const observer = new IntersectionObserver((entries) => {
+    const entranceObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
+                entranceObserver.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
-    const memberCards = document.querySelectorAll('.member-card');
-    memberCards.forEach((card, index) => {
+    cards.forEach((card, i) => {
         card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transitionDelay = `${index * 50}ms`;
-        observer.observe(card);
+        card.style.transform = 'translateY(16px)';
+        card.style.transition = `opacity .4s ease ${i * 35}ms, transform .4s ease ${i * 35}ms, border-left-color .25s ease, padding-left .25s ease, background .25s ease`;
+        entranceObserver.observe(card);
+    });
+
+    /* ── STICKY PHOTO ON SCROLL & HOVER ────────── */
+    const stickyPanel = document.getElementById('sticky-panel');
+    const stickyImg = document.getElementById('sticky-photo');
+    const stickyLabel = document.getElementById('sticky-label');
+
+    if (stickyPanel && stickyImg) {
+        const updateStickyPhoto = (card) => {
+            if (!card) return;
+            const photo = card.getAttribute('data-photo');
+            const name = card.querySelector('.member-name')?.textContent || '';
+            const nick = card.querySelector('.member-nickname')?.textContent || '';
+
+            cards.forEach(c => c.classList.remove('is-active'));
+            card.classList.add('is-active');
+
+            if (photo) {
+                stickyImg.src = photo;
+                stickyLabel.textContent = nick ? `${name} ${nick}` : name;
+                stickyPanel.classList.add('has-photo');
+            } else {
+                stickyPanel.classList.remove('has-photo');
+                stickyImg.src = '';
+                stickyLabel.textContent = '';
+            }
+        };
+
+        // Hover effect on PC
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                updateStickyPhoto(card);
+            });
+        });
+
+        // IntersectionObserver for scroll tracking
+        const photoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateStickyPhoto(entry.target);
+                }
+            });
+        }, {
+            rootMargin: '-15% 0px -50% 0px',
+            threshold: 0
+        });
+
+        cards.forEach(card => photoObserver.observe(card));
+
+        // Default initialization on page load
+        if (cards.length > 0) {
+            updateStickyPhoto(cards[0]);
+        }
+    }
+
+    /* ── MODAL ─────────────────────────────────── */
+    const modalOverlay = document.getElementById('member-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalInfo = document.getElementById('modal-info');
+    const modalIg = document.getElementById('modal-instagram');
+    const closeBtn = document.querySelector('.close-modal');
+
+    function openModal(card) {
+        const photo = card.getAttribute('data-photo');
+        const igBtn = card.querySelector('.instagram-btn');
+
+        if (photo) {
+            modalImg.src = photo;
+            modalImg.style.display = 'block';
+        } else {
+            modalImg.style.display = 'none';
+        }
+
+        modalInfo.innerHTML = card.querySelector('.member-info')?.innerHTML || '';
+        modalIg.href = igBtn?.href || '#';
+        modalIg.innerHTML = igBtn?.innerHTML || '';
+
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    cards.forEach(card => {
+        card.addEventListener('click', e => {
+            if (e.target.closest('a')) return;
+            openModal(card);
+        });
+    });
+
+    closeBtn?.addEventListener('click', closeModal);
+    modalOverlay?.addEventListener('click', e => {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModal();
     });
 });
