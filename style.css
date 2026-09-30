@@ -13,7 +13,9 @@
 }
 
 /* == RESET ============================================= */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -529,6 +531,7 @@ h2 {
         opacity: 0;
         transform: translateY(-18px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -540,6 +543,7 @@ h2 {
         opacity: 0;
         transform: translateY(12px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -716,4 +720,28 @@ h2 {
 
 .ranking-score small {
     color: var(--muted);
+}
+
+.btn-join {
+    background: linear-gradient(135deg, #6c5ce7, #8e44ad);
+    color: #fff !important;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px 34px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.35);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.btn-join:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(108, 92, 231, 0.5);
+    filter: brightness(1.1);
+}
+
+.btn-join:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
 }
