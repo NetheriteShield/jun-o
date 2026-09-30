@@ -22,7 +22,7 @@
   <!-- Overlay de Orientação (Aparece apenas no mobile em modo retrato) -->
   <div id="orientation-overlay" class="orientation-overlay">
     <div class="orientation-content">
-      <div class="rotate-icon">🔄</div>
+      <div class="rotate-icon">↺</div>
       <h2>Vire o seu celular</h2>
       <p>Este jogo precisa ser jogado com a tela deitada (modo paisagem) para uma melhor experiência.</p>
     </div>
@@ -42,7 +42,6 @@
     <header class="game-hud" id="game-hud">
       <div class="hud-left">
         <div class="player-badge" id="player-badge">
-          <div class="avatar-ring">🏓</div>
           <div class="player-info-text">
             <span class="player-name-display" id="hud-player-name">Jogador</span>
             <span class="player-sub-display" id="hud-player-meta">@instagram • Curso</span>
@@ -56,14 +55,12 @@
           <span class="score-value" id="hud-score">0</span>
         </div>
         <div class="combo-pill" id="combo-pill">
-          <span class="combo-flame">🔥</span>
           <span id="combo-text">COMBO 1x</span>
         </div>
       </div>
 
       <div class="hud-right">
         <div class="speed-indicator" id="speed-indicator">
-          <div class="speed-icon">⚡</div>
           <div class="speed-text">
             <span class="speed-label">VELOCIDADE</span>
             <span class="speed-val" id="hud-speed">1.0x</span>
@@ -107,13 +104,11 @@
   <div class="modal-backdrop" id="modal-register">
     <div class="modal-card">
       <div class="modal-header">
-        <div class="trophy-badge">🏆</div>
         <h2>PING PONG CHALLENGE</h2>
-        <p class="subtitle">Desafio Universitário • Vale Premiação!</p>
+        <p class="subtitle">Torneio Semanal — Vale Premiação</p>
       </div>
 
       <div class="tournament-notice">
-        <div class="notice-icon">⏱️</div>
         <div class="notice-text">
           <strong>Ranking Semanal:</strong> Toda <b>sexta-feira às 00:00</b> o placar reinicia para uma nova disputa.
           Faça seu melhor score e garanta o topo!
@@ -122,7 +117,6 @@
 
       <!-- Contador de Tentativas Restantes (atualizado via API) -->
       <div class="attempts-info-box" id="attempts-info" data-blocked="false">
-        <span class="attempts-icon">🎮</span>
         <div class="attempts-text">
           Tentativas restantes esta semana:
           <strong id="attempts-count">15</strong> / 15
@@ -131,56 +125,46 @@
 
       <form id="form-register" autocomplete="on">
         <div class="form-group">
-          <label for="reg-name">Seu Nome Completo <span class="required">*</span></label>
+          <label for="reg-name">Nome Completo <span class="required">*</span></label>
           <div class="input-wrap">
-            <span class="input-icon">👤</span>
             <input type="text" id="reg-name" name="name" placeholder="Ex: Ana Silva" required maxlength="80">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="reg-instagram">Seu Instagram <span class="required">*</span></label>
+          <label for="reg-instagram">Instagram <span class="required">*</span></label>
           <div class="input-wrap">
-            <span class="input-icon">📸</span>
             <input type="text" id="reg-instagram" name="instagram" placeholder="@seu.perfil" required maxlength="50">
           </div>
           <span class="input-help">Usado para identificar e premiar o vencedor.</span>
         </div>
 
         <div class="form-group">
-          <label for="reg-curso">Seu Curso <span class="required">*</span></label>
-          <div class="input-wrap">
-            <input type="text" id="reg-curso" name="curso" list="cursos-list" placeholder="Ex: DS, Química, etc."
-              required maxlength="80">
-            <datalist id="cursos-list">
-              <option value="Administração">
-              <option value="Arquitetura e Urbanismo">
-              <option value="Biomedicina">
-              <option value="Ciência da Computação">
-              <option value="Ciências Contábeis">
-              <option value="Design">
-              <option value="Direito">
-              <option value="Educação Física">
-              <option value="Enfermagem">
-              <option value="Engenharia Civil">
-              <option value="Engenharia de Software">
-              <option value="Engenharia Mecânica">
-              <option value="Farmácia">
-              <option value="Fisioterapia">
-              <option value="Medicina">
-              <option value="Medicina Veterinária">
-              <option value="Nutrição">
-              <option value="Odontologia">
-              <option value="Psicologia">
-              <option value="Publicidade e Propaganda">
-              <option value="Sistemas de Informação">
-            </datalist>
+          <label for="reg-curso">Curso <span class="required">*</span></label>
+          <div class="input-wrap select-wrap">
+            <select id="reg-curso" name="curso" required>
+              <option value="" disabled selected>Selecione seu curso</option>
+              <option value="Eletroeletrônica">Eletroeletrônica</option>
+              <option value="ADA">ADA</option>
+              <option value="DS">DS</option>
+              <option value="Design de Interiores">Design de Interiores</option>
+              <option value="EDA">EDA</option>
+              <option value="ETEL">ETEL</option>
+              <option value="Eventos">Eventos</option>
+              <option value="ETIQ">ETIQ</option>
+              <option value="CNAT">CNAT</option>
+              <option value="Gastronomia">Gastronomia</option>
+              <option value="Mecânica">Mecânica</option>
+              <option value="Humanas">Humanas</option>
+              <option value="Recursos Humanos">Recursos Humanos</option>
+              <option value="Segurança do Trabalho">Segurança do Trabalho</option>
+            </select>
           </div>
         </div>
 
         <div class="form-actions">
           <button type="submit" class="btn-primary" id="btn-start-game">
-            <span>ENTRAR NO JOGO 🏓</span>
+            <span>ENTRAR NO JOGO</span>
           </button>
         </div>
       </form>
@@ -238,7 +222,7 @@
       <!-- Botões de Ação -->
       <div class="modal-actions">
         <button class="btn-primary" id="btn-replay">
-          <span>JOGAR NOVAMENTE 🔄</span>
+          <span>JOGAR NOVAMENTE</span>
         </button>
       </div>
     </div>

@@ -1,8 +1,8 @@
-/**
+﻿/**
  * =========================================================================
- * PING PONG CHALLENGE - ENGINE & LÓGICA DO JOGO
- * Sistema de física, renderização em alta performance, áudio sintetizado
- * e sincronização com banco de dados MySQL para o torneio semanal.
+ * PING PONG CHALLENGE - ENGINE & LÃ“GICA DO JOGO
+ * Sistema de fÃ­sica, renderizaÃ§Ã£o em alta performance, Ã¡udio sintetizado
+ * e sincronizaÃ§Ã£o com banco de dados MySQL para o torneio semanal.
  * =========================================================================
  */
 
@@ -22,7 +22,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // =========================================================================
-// 1. SISTEMA DE ÁUDIO PROCEDURAL (WEB AUDIO API - ZERO ARQUIVOS EXTERNOS)
+// 1. SISTEMA DE ÃUDIO PROCEDURAL (WEB AUDIO API - ZERO ARQUIVOS EXTERNOS)
 // =========================================================================
 class SoundController {
   constructor() {
@@ -70,11 +70,11 @@ class SoundController {
       osc.start();
       osc.stop(this.ctx.currentTime + duration);
     } catch (e) {
-      // Ignora restrições de autoplay silenciosamente
+      // Ignora restriÃ§Ãµes de autoplay silenciosamente
     }
   }
 
-  // Efeitos sonoros temáticos
+  // Efeitos sonoros temÃ¡ticos
   hitPlayer() {
     this.playTone(520, 'triangle', 0.09, 0.2);
   }
@@ -88,7 +88,7 @@ class SoundController {
   }
 
   sweetSpot() {
-    // Efeito metálico de rebatida perfeita
+    // Efeito metÃ¡lico de rebatida perfeita
     if (!this.enabled || !this.ctx) return;
     this.resume();
     const now = this.ctx.currentTime;
@@ -127,7 +127,7 @@ class SoundController {
   }
 
   gameOver() {
-    // Tom dramático descendente
+    // Tom dramÃ¡tico descendente
     if (!this.enabled || !this.ctx) return;
     this.resume();
     const now = this.ctx.currentTime;
@@ -156,7 +156,7 @@ class SoundController {
 }
 
 // =========================================================================
-// 2. SISTEMA DE PARTÍCULAS & IMPACTOS VISUAIS
+// 2. SISTEMA DE PARTÃCULAS & IMPACTOS VISUAIS
 // =========================================================================
 class ParticleSystem {
   constructor() {
@@ -220,7 +220,7 @@ class PingPongGame {
     this.ctx = this.canvas.getContext('2d');
     this.wrapper = document.getElementById('canvas-wrapper');
 
-    // Módulos
+    // MÃ³dulos
     this.sound = new SoundController();
     this.particles = new ParticleSystem();
 
@@ -272,7 +272,7 @@ class PingPongGame {
     this.attemptsRemaining = 15; // Atualizado via API ao carregar
     this.attemptsBlocked = false;
 
-    // Dimensões Virtuais (Lógicas) do Jogo
+    // DimensÃµes Virtuais (LÃ³gicas) do Jogo
     this.virtualWidth = 1000;
     this.virtualHeight = 600;
     this.scale = 1;
@@ -287,17 +287,17 @@ class PingPongGame {
     this.startTime = 0;
     this.gameDuration = 0;
 
-    // Configuração de Velocidade
-    // A bola começa DEVAGAR e vai acelerando gradualmente a cada rebatida.
-    this.baseBallSpeed  = 4.2;   // Velocidade inicial da bola (bem lenta no começo)
+    // ConfiguraÃ§Ã£o de Velocidade
+    // A bola comeÃ§a DEVAGAR e vai acelerando gradualmente a cada rebatida.
+    this.baseBallSpeed  = 5.5;   // Velocidade inicial mais alta
     this.speedMultiplier = 1.0;
-    this.speedIncrement = 0.015; // Aumenta apenas 1.5% por rebatida — cresça bem suave
+    this.speedIncrement = 0.032; // Acelera ~3% por rebatida (muito mais rapido)
 
-    // Velocidade do jogador também começa lenta e escala junto com a bola.
-    this.playerBaseKeySpeed = 4.0;   // Velocidade inicial das teclas (muito suave)
-    this.playerMaxKeySpeed  = 18;    // Teto máximo para teclas
-    this.playerBaseLerp     = 0.07;  // Interp. do mouse/toque inicial (bem lenta)
-    this.playerMaxLerp      = 0.32;  // Teto do lerp
+    // Velocidade do jogador tambÃ©m comeÃ§a lenta e escala junto com a bola.
+    this.playerBaseKeySpeed = 5.5;   // Velocidade inicial das teclas
+    this.playerMaxKeySpeed  = 20;    // Teto mÃ¡ximo para teclas
+    this.playerBaseLerp     = 0.10;  // Interp. do mouse/toque inicial
+    this.playerMaxLerp      = 0.38;  // Teto do lerp
 
     // Efeitos
     this.screenShake = 0;
@@ -321,7 +321,7 @@ class PingPongGame {
       y: this.virtualHeight / 2 - this.paddleHeight / 2,
       w: this.paddleWidth,
       h: this.paddleHeight,
-      speed: 4.5,   // Começa lenta, escala com o jogo em updateAI()
+      speed: 4.5,   // ComeÃ§a lenta, escala com o jogo em updateAI()
       reactionLag: 0.15
     };
 
@@ -343,7 +343,7 @@ class PingPongGame {
   }
 
   // =======================================================================
-  // INICIALIZAÇÃO E EVENTOS
+  // INICIALIZAÃ‡ÃƒO E EVENTOS
   // =======================================================================
   init() {
     this.resizeCanvas();
@@ -356,7 +356,7 @@ class PingPongGame {
     // Consulta tentativas restantes via API logo ao carregar
     this.checkAttempts();
 
-    // Loop de Animação 60fps
+    // Loop de AnimaÃ§Ã£o 60fps
     requestAnimationFrame((t) => this.gameLoop(t));
   }
 
@@ -373,11 +373,11 @@ class PingPongGame {
   }
 
   bindControls() {
-    // Submissão do Formulário de Inscrição
+    // SubmissÃ£o do FormulÃ¡rio de InscriÃ§Ã£o
     this.dom.formRegister.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Verifica tentativas ANTES de deixar entrar (sem recarregar se já sabemos)
+      // Verifica tentativas ANTES de deixar entrar (sem recarregar se jÃ¡ sabemos)
       if (this.attemptsBlocked) {
         this.showBlockedAlert();
         return;
@@ -388,7 +388,7 @@ class PingPongGame {
       const curso = this.dom.inputCurso.value.trim();
 
       if (!nome || !instagram || !curso) {
-        alert('Por favor, preencha todos os campos obrigatórios!');
+        alert('Por favor, preencha todos os campos obrigatÃ³rios!');
         return;
       }
 
@@ -408,9 +408,9 @@ class PingPongGame {
 
       // Atualiza HUD
       this.dom.playerName.textContent = nome;
-      this.dom.playerMeta.textContent = `${instagram} • ${curso}`;
+      this.dom.playerMeta.textContent = `${instagram} â€¢ ${curso}`;
 
-      // Inicia áudio com o clique do usuário
+      // Inicia Ã¡udio com o clique do usuÃ¡rio
       this.sound.resume();
 
       // Esconde Modal e Inicia Contagem
@@ -418,13 +418,13 @@ class PingPongGame {
       this.startCountdown();
     });
 
-    // Botão de Som
+    // BotÃ£o de Som
     this.dom.soundBtn.addEventListener('click', () => {
       const enabled = this.sound.toggle();
       this.updateSoundIcon();
     });
 
-    // Botão de Pausa
+    // BotÃ£o de Pausa
     this.dom.pauseBtn.addEventListener('click', () => {
       this.togglePause();
     });
@@ -451,7 +451,7 @@ class PingPongGame {
       }
     });
 
-    // Movimentação do Mouse no Canvas
+    // MovimentaÃ§Ã£o do Mouse no Canvas
     this.wrapper.addEventListener('mousemove', (e) => {
       if (this.state !== 'PLAYING') return;
       const rect = this.canvas.getBoundingClientRect();
@@ -460,7 +460,7 @@ class PingPongGame {
       this.player.targetY = virtualY - this.player.h / 2;
     });
 
-    // Movimentação Touch no Celular
+    // MovimentaÃ§Ã£o Touch no Celular
     const handleTouch = (e) => {
       if (this.state !== 'PLAYING') return;
       if (e.touches.length > 0) {
@@ -481,7 +481,7 @@ class PingPongGame {
       handleTouch(e);
     }, { passive: true });
 
-    // Botões do Game Over
+    // BotÃµes do Game Over
     this.dom.btnReplay.addEventListener('click', async () => {
       if (this.attemptsBlocked) {
         this.showBlockedAlert();
@@ -499,7 +499,7 @@ class PingPongGame {
   }
 
   // =======================================================================
-  // VERIFICAÇÃO DE TENTATIVAS RESTANTES (API)
+  // VERIFICAÃ‡ÃƒO DE TENTATIVAS RESTANTES (API)
   // =======================================================================
   async checkAttempts() {
     this.attemptsRemaining = 15;
@@ -509,24 +509,24 @@ class PingPongGame {
   }
 
   updateAttemptsUI() {
-    // Atualiza o contador de tentativas no formulário de registro
+    // Atualiza o contador de tentativas no formulÃ¡rio de registro
     if (this.dom.attemptsCount) {
       this.dom.attemptsCount.textContent = this.attemptsRemaining;
     }
     if (this.dom.attemptsInfo) {
       this.dom.attemptsInfo.dataset.blocked = this.attemptsBlocked ? 'true' : 'false';
     }
-    // Atualiza o texto do botão replay no game over
+    // Atualiza o texto do botÃ£o replay no game over
     if (this.dom.btnReplay) {
       if (this.attemptsBlocked) {
-        this.dom.btnReplay.innerHTML = '<span>Sem tentativas esta semana 🔒</span>';
+        this.dom.btnReplay.innerHTML = '<span>Sem tentativas esta semana</span>';
         this.dom.btnReplay.style.opacity = '0.45';
         this.dom.btnReplay.style.cursor = 'not-allowed';
       } else {
         const leftLabel = this.attemptsRemaining === this.MAX_ATTEMPTS
           ? ''
           : ` (${this.attemptsRemaining} restantes)`;
-        this.dom.btnReplay.innerHTML = `<span>JOGAR NOVAMENTE 🔄${leftLabel}</span>`;
+        this.dom.btnReplay.innerHTML = `<span>JOGAR NOVAMENTE${leftLabel}</span>`;
         this.dom.btnReplay.style.opacity = '1';
         this.dom.btnReplay.style.cursor = 'pointer';
       }
@@ -534,7 +534,7 @@ class PingPongGame {
     // Tentativas restantes no game over
     if (this.dom.goAttemptsLeft) {
       if (this.attemptsBlocked) {
-        this.dom.goAttemptsLeft.textContent = 'Você usou todas as suas 15 tentativas desta semana!';
+        this.dom.goAttemptsLeft.textContent = 'VocÃª usou todas as suas 15 tentativas desta semana!';
         this.dom.goAttemptsLeft.style.color = 'var(--accent-red)';
       } else {
         this.dom.goAttemptsLeft.textContent = `Tentativas restantes esta semana: ${this.attemptsRemaining}`;
@@ -544,23 +544,23 @@ class PingPongGame {
   }
 
   showBlockedAlert() {
-    // Exibe aviso amigável de tentativas esgotadas
-    alert('Você já utilizou todas as 15 tentativas desta semana!\n\nO ranking reinicia toda sexta-feira às 00:00.\n\nFique de olho no Instagram para saber se você ganhou o prêmio! 🏆');
+    // Exibe aviso amigÃ¡vel de tentativas esgotadas
+    alert('VocÃª jÃ¡ utilizou todas as 15 tentativas desta semana!\n\nO ranking reinicia toda sexta-feira Ã s 00:00.\n\nFique de olho no Instagram para saber se vocÃª ganhou o prÃªmio! ðŸ†');
   }
 
   updateSoundIcon() {
-    this.dom.soundIcon.textContent = this.sound.enabled ? '🔊' : '🔇';
+    this.dom.soundIcon.textContent = this.sound.enabled ? 'ðŸ”Š' : 'ðŸ”‡';
     this.dom.soundBtn.style.opacity = this.sound.enabled ? '1' : '0.5';
   }
 
   togglePause() {
     if (this.state === 'PLAYING') {
       this.state = 'PAUSED';
-      this.dom.pauseIcon.textContent = '▶️';
+      this.dom.pauseIcon.textContent = 'â–¶ï¸';
       this.showBanner('JOGO PAUSADO');
     } else if (this.state === 'PAUSED') {
       this.state = 'PLAYING';
-      this.dom.pauseIcon.textContent = '⏸️';
+      this.dom.pauseIcon.textContent = 'â¸ï¸';
       this.hideBanner();
     }
   }
@@ -569,7 +569,7 @@ class PingPongGame {
     const rect = this.wrapper.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
 
-    // Ajusta resolução do canvas de acordo com o tamanho real
+    // Ajusta resoluÃ§Ã£o do canvas de acordo com o tamanho real
     this.canvas.width = rect.width * dpr;
     this.canvas.height = rect.height * dpr;
 
@@ -611,7 +611,7 @@ class PingPongGame {
         this.dom.countdown.classList.remove('active');
         this.state = 'PLAYING';
         this.startTime = Date.now();
-        this.serveBall(1); // Saca para a IA primeiro: jogador vê a bola chegando de volta
+        this.serveBall(1); // Saca para a IA primeiro: jogador vÃª a bola chegando de volta
       }
     }, 850);
   }
@@ -641,23 +641,23 @@ class PingPongGame {
 
   serveBall(direction = 1) {
     const currentSpeed = this.baseBallSpeed * this.speedMultiplier;
-    // Ângulo aleatório leve para o saque
+    // Ã‚ngulo aleatÃ³rio leve para o saque
     const angle = (Math.random() * 0.6 - 0.3); // Entre -17 e +17 graus
     this.ball.vx = Math.cos(angle) * currentSpeed * direction;
     this.ball.vy = Math.sin(angle) * currentSpeed;
   }
 
   // =======================================================================
-  // ATUALIZAÇÕES DA FÍSICA E INTELIGÊNCIA ARTIFICIAL
+  // ATUALIZAÃ‡Ã•ES DA FÃSICA E INTELIGÃŠNCIA ARTIFICIAL
   // =======================================================================
   update() {
     if (this.state !== 'PLAYING') return;
 
-    // Atualiza partículas
+    // Atualiza partÃ­culas
     this.particles.update();
 
-    // 1. Controle do Jogador — Velocidade dinâmica que cresce junto com a bola
-    // A velocidade de teclado e a interpolação do mouse aumentam gradualmente
+    // 1. Controle do Jogador â€” Velocidade dinÃ¢mica que cresce junto com a bola
+    // A velocidade de teclado e a interpolaÃ§Ã£o do mouse aumentam gradualmente
     // com o speedMultiplier, igualando o crescimento da dificuldade da bolinha.
     const dynamicKeySpeed = Math.min(
       this.playerMaxKeySpeed,
@@ -677,13 +677,13 @@ class PingPongGame {
 
     // Limites de tela para o Jogador
     this.player.targetY = Math.max(10, Math.min(this.virtualHeight - this.player.h - 10, this.player.targetY));
-    // Interpolação suave com velocidade crescente (mouse/touch)
+    // InterpolaÃ§Ã£o suave com velocidade crescente (mouse/touch)
     this.player.y += (this.player.targetY - this.player.y) * dynamicLerp;
 
-    // 2. Inteligência Artificial do Adversário
+    // 2. InteligÃªncia Artificial do AdversÃ¡rio
     this.updateAI();
 
-    // 3. Atualização da Bola
+    // 3. AtualizaÃ§Ã£o da Bola
     this.ball.x += this.ball.vx;
     this.ball.y += this.ball.vy;
 
@@ -693,7 +693,7 @@ class PingPongGame {
       this.ballTrail.shift();
     }
 
-    // 4. Colisão com Paredes Superior e Inferior
+    // 4. ColisÃ£o com Paredes Superior e Inferior
     if (this.ball.y - this.ball.radius <= 10) {
       this.ball.y = 10 + this.ball.radius;
       this.ball.vy = -this.ball.vy;
@@ -706,7 +706,7 @@ class PingPongGame {
       this.particles.emit(this.ball.x, this.ball.y, '#94a3b8', 6);
     }
 
-    // 5. Colisão com a Raquete do Jogador (Esquerda)
+    // 5. ColisÃ£o com a Raquete do Jogador (Esquerda)
     if (
       this.ball.vx < 0 &&
       this.ball.x - this.ball.radius <= this.player.x + this.player.w &&
@@ -717,7 +717,7 @@ class PingPongGame {
       this.handlePlayerHit();
     }
 
-    // 6. Colisão com a Raquete da IA (Direita)
+    // 6. ColisÃ£o com a Raquete da IA (Direita)
     if (
       this.ball.vx > 0 &&
       this.ball.x + this.ball.radius >= this.ai.x &&
@@ -728,12 +728,12 @@ class PingPongGame {
       this.handleAIHit();
     }
 
-    // 7. Verificação de Pontos / Derrota
+    // 7. VerificaÃ§Ã£o de Pontos / Derrota
     if (this.ball.x + this.ball.radius < 0) {
       // Jogador deixou a bola passar: FIM DE JOGO
       this.triggerGameOver();
     } else if (this.ball.x - this.ball.radius > this.virtualWidth) {
-      // IA deixou a bola passar: Super Bônus e Nova Rodada com velocidade mantida!
+      // IA deixou a bola passar: Super BÃ´nus e Nova Rodada com velocidade mantida!
       this.handleRoundWon();
     }
 
@@ -748,14 +748,14 @@ class PingPongGame {
     const aiCenter = this.ai.y + this.ai.h / 2;
     let targetY = this.ai.y;
 
-    // Se a bola estiver vindo para a IA, ela acompanha com precisão proporcional
+    // Se a bola estiver vindo para a IA, ela acompanha com precisÃ£o proporcional
     if (this.ball.vx > 0) {
-      // Previsão simples de onde a bola vai chegar
+      // PrevisÃ£o simples de onde a bola vai chegar
       const distance = this.ai.x - this.ball.x;
       const framesToReach = Math.max(1, distance / this.ball.vx);
       const predictedBallY = this.ball.y + this.ball.vy * Math.min(framesToReach, 40);
 
-      // Pequena imperfeição humana na IA
+      // Pequena imperfeiÃ§Ã£o humana na IA
       const errorMargin = (Math.sin(Date.now() / 300) * 18);
       targetY = (predictedBallY + errorMargin) - this.ai.h / 2;
     } else {
@@ -790,7 +790,7 @@ class PingPongGame {
       this.maxSpeedReached = this.speedMultiplier;
     }
 
-    // Cálculo do Ponto de Impacto na Raquete (-1 topo, 0 centro, +1 base)
+    // CÃ¡lculo do Ponto de Impacto na Raquete (-1 topo, 0 centro, +1 base)
     const hitOffset = (this.ball.y - (this.player.y + this.player.h / 2)) / (this.player.h / 2);
     const clampedOffset = Math.max(-1, Math.min(1, hitOffset));
 
@@ -801,7 +801,7 @@ class PingPongGame {
       this.screenShake = 3;
     }
 
-    // Ângulo de reflexão dinâmico (máximo 60 graus)
+    // Ã‚ngulo de reflexÃ£o dinÃ¢mico (mÃ¡ximo 60 graus)
     const maxBounceAngle = Math.PI / 3;
     const bounceAngle = clampedOffset * maxBounceAngle;
 
@@ -821,7 +821,7 @@ class PingPongGame {
     this.sound.hitAI();
     this.particles.emit(this.ball.x, this.ball.y, '#ec4899', 14);
 
-    // Reflexão da IA
+    // ReflexÃ£o da IA
     const hitOffset = (this.ball.y - (this.ai.y + this.ai.h / 2)) / (this.ai.h / 2);
     const clampedOffset = Math.max(-1, Math.min(1, hitOffset));
     const maxBounceAngle = Math.PI / 3;
@@ -841,7 +841,7 @@ class PingPongGame {
     this.particles.emit(this.virtualWidth - 50, this.virtualHeight / 2, '#10b981', 40, 2);
     this.updateHUD();
 
-    // Mantém a velocidade alta e reinicia o serviço para o jogador continuar pontuando!
+    // MantÃ©m a velocidade alta e reinicia o serviÃ§o para o jogador continuar pontuando!
     this.ball.x = this.virtualWidth / 2;
     this.ball.y = this.virtualHeight / 2;
     this.ball.vx = 0;
@@ -879,7 +879,7 @@ class PingPongGame {
   }
 
   // =======================================================================
-  // SINCRONIZAÇÃO COM O BANCO DE DADOS (API PHP NO INFINITYFREE)
+  // SINCRONIZAÃ‡ÃƒO COM O BANCO DE DADOS (API PHP NO INFINITYFREE)
   // =======================================================================
   async submitScoreToDatabase() {
     const statusBox = this.dom.dbStatusBox;
@@ -887,7 +887,7 @@ class PingPongGame {
     const detail = this.dom.dbDetail;
 
     statusBox.className = 'db-status-box';
-    title.textContent = 'Gravando pontuação no ranking...';
+    title.textContent = 'Gravando pontuaÃ§Ã£o no ranking...';
     detail.textContent = 'Enviando seus pontos para o Firebase...';
 
     const payload = {
@@ -904,18 +904,18 @@ class PingPongGame {
     try {
       await db.collection("scores").add(payload);
       statusBox.classList.add('success');
-      title.textContent = 'Pontuação Registrada! ✅';
+      title.textContent = 'PontuaÃ§Ã£o Registrada! âœ…';
       detail.textContent = 'Pontos salvos com sucesso no servidor do Firebase!';
     } catch (err) {
       statusBox.classList.add('error');
-      title.textContent = 'Erro de Conexão';
-      detail.textContent = 'Não foi possível salvar no Firebase. Tente novamente mais tarde.';
+      title.textContent = 'Erro de ConexÃ£o';
+      detail.textContent = 'NÃ£o foi possÃ­vel salvar no Firebase. Tente novamente mais tarde.';
       console.warn('Erro ao salvar no Firebase:', err);
     }
   }
 
   // =======================================================================
-  // ATUALIZAÇÃO DA INTERFACE (HUD)
+  // ATUALIZAÃ‡ÃƒO DA INTERFACE (HUD)
   // =======================================================================
   updateHUD() {
     this.dom.score.textContent = this.score.toLocaleString('pt-BR');
@@ -924,7 +924,7 @@ class PingPongGame {
     const speedVal = this.speedMultiplier.toFixed(1) + 'x';
     this.dom.speed.textContent = speedVal;
 
-    // Barra de progresso da velocidade (escala até 3.5x)
+    // Barra de progresso da velocidade (escala atÃ© 3.5x)
     const pct = Math.min(100, Math.max(10, ((this.speedMultiplier - 1.0) / 2.5) * 100));
     this.dom.speedBar.style.width = `${pct}%`;
 
@@ -971,7 +971,7 @@ class PingPongGame {
   }
 
   // =======================================================================
-  // RENDERIZAÇÃO GRÁFICA NO CANVAS
+  // RENDERIZAÃ‡ÃƒO GRÃFICA NO CANVAS
   // =======================================================================
   render() {
     const { ctx, canvas } = this;
@@ -1004,7 +1004,7 @@ class PingPongGame {
     // 4. Bola com Efeito Neon
     this.drawBall();
 
-    // 5. Partículas
+    // 5. PartÃ­culas
     this.particles.draw(ctx);
 
     ctx.restore();
@@ -1029,7 +1029,7 @@ class PingPongGame {
     ctx.stroke();
     ctx.restore();
 
-    // Círculo Central Sutil
+    // CÃ­rculo Central Sutil
     ctx.save();
     ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
     ctx.lineWidth = 2;
@@ -1079,7 +1079,7 @@ class PingPongGame {
     this.roundRect(ctx, this.player.x, this.player.y, this.player.w, this.player.h, 6);
     ctx.fill();
 
-    // Núcleo da raquete (efeito de luz central)
+    // NÃºcleo da raquete (efeito de luz central)
     ctx.fillStyle = '#ffffff';
     this.roundRect(ctx, this.player.x + 3, this.player.y + 4, this.player.w - 6, this.player.h - 8, 3);
     ctx.fill();
@@ -1106,7 +1106,7 @@ class PingPongGame {
     const { ctx, ball } = this;
 
     ctx.save();
-    // Brilho da bola muda de cor de acordo com o nível de velocidade
+    // Brilho da bola muda de cor de acordo com o nÃ­vel de velocidade
     let glowColor = '#00f0ff';
     if (this.speedMultiplier >= 2.6) {
       glowColor = '#ec4899'; // Hipervelocidade Magenta
@@ -1148,7 +1148,8 @@ class PingPongGame {
   }
 }
 
-// Inicia o jogo assim que a página carregar
+// Inicia o jogo assim que a pÃ¡gina carregar
 window.addEventListener('DOMContentLoaded', () => {
   window.game = new PingPongGame();
 });
+
