@@ -142,7 +142,7 @@ async function fetchRanking() {
     if (!container) return;
 
     try {
-        const response = await fetch('../jogo/api/get_ranking.php');
+        const response = await fetch('http://juncaogame.ct.ws/api/get_ranking.php');
         const data = await response.json();
 
         if (data.success && data.ranking && data.ranking.length > 0) {
@@ -183,3 +183,4 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     });
 });
 fetchRanking();
+
