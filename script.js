@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
     /* ── TAB SWITCHING ─────────────────────────── */
     const navBtns = document.querySelectorAll('.nav-btn');
@@ -136,19 +136,50 @@
 });
 
 
-// --- LÃ³gica do Ranking do Ping Pong ---
+const firebaseConfig = {
+  apiKey: "AIzaSyD2s1LzGVJxVOTHwDFlUpXbNRc7qJ8UCRU",
+  authDomain: "juncao-cee81.firebaseapp.com",
+  projectId: "juncao-cee81",
+  storageBucket: "juncao-cee81.firebasestorage.app",
+  messagingSenderId: "182504701486",
+  appId: "1:182504701486:web:7b3bec033f812f7caf69bf",
+  measurementId: "G-6NHNNXRLXL"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// --- Lógica do Ranking do Ping Pong com Firebase ---
 async function fetchRanking() {
     const container = document.getElementById('ranking-container');
     if (!container) return;
 
     try {
-        const response = await fetch('http://juncaogame.ct.ws/jogo/api/get_ranking.php');
-        const data = await response.json();
+        const scoresRef = db.collection("scores");
+        const querySnapshot = await scoresRef.orderBy("score", "desc").limit(50).get();
 
-        if (data.success && data.ranking && data.ranking.length > 0) {
+        let ranking = [];
+        querySnapshot.forEach((doc) => {
+            ranking.push(doc.data());
+        });
+
+        // Filtrar instagrams duplicados, mantendo apenas a maior pontuação de cada
+        let uniqueRanking = [];
+        let seenInstas = new Set();
+        for (let player of ranking) {
+            if (!seenInstas.has(player.instagram)) {
+                uniqueRanking.push(player);
+                seenInstas.add(player.instagram);
+            }
+        }
+        
+        // Limitar aos top 10
+        uniqueRanking = uniqueRanking.slice(0, 10);
+
+        if (uniqueRanking.length > 0) {
             let html = '<div class="ranking-list">';
-            data.ranking.forEach((player, index) => {
-                const medal = index === 0 ? 'ðŸ¥‡' : (index === 1 ? 'ðŸ¥ˆ' : (index === 2 ? 'ðŸ¥‰' : (index + 1 + 'Âº')));
+            uniqueRanking.forEach((player, index) => {
+                const medal = index === 0 ? '🥇' : (index === 1 ? '🥈' : (index === 2 ? '🥉' : (index + 1 + 'º')));
                 html += `
                     <div class="ranking-item">
                         <div class="ranking-pos">${medal}</div>
@@ -157,8 +188,8 @@ async function fetchRanking() {
                             <br><small>${player.curso}</small>
                         </div>
                         <div class="ranking-score">
-                            <strong>${player.melhor_score}</strong> pts
-                            <br><small>${player.max_rallies} rebatidas</small>
+                            <strong>${player.score}</strong> pts
+                            <br><small>${player.rallies} rebatidas</small>
                         </div>
                     </div>
                 `;
@@ -166,10 +197,10 @@ async function fetchRanking() {
             html += '</div>';
             container.innerHTML = html;
         } else {
-            container.innerHTML = '<p style="text-align:center; color: var(--text-muted);">Nenhum jogador registrado nesta semana ainda.</p>';
+            container.innerHTML = '<p style="text-align:center; color: var(--muted);">Nenhum jogador registrado nesta semana ainda.</p>';
         }
     } catch (error) {
-        console.error('Erro ao buscar ranking:', error);
+        console.error('Erro ao buscar ranking do Firebase:', error);
         container.innerHTML = '<p style="text-align:center; color: #ef4444;">Erro ao carregar o ranking.</p>';
     }
 }
@@ -183,4 +214,5 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     });
 });
 fetchRanking();
+
 

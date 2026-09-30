@@ -17,9 +17,9 @@
         <header>
             <h1 class="glow-text">A Junção</h1>
             <nav>
-                <button class="nav-btn active" data-target="presentation">A Ordem</button>
+                <button class="nav-btn active" data-target="presentation">Integrantes</button>
                 <button class="nav-btn" data-target="constitution">Constituição</button>
-                <button class="nav-btn" data-target="premiacao">Premiação</button>
+                <button class="nav-btn" data-target="premiacao">O Jogo</button>
                 <button class="nav-btn" data-target="ranking">Ranking</button>
             </nav>
         </header>
@@ -317,11 +317,12 @@
                         <li>
                             <span class="law-number">V.</span>
                             <p><strong>O Princípio da Fraternidade:</strong> Um membro nunca abandona outro. A força de
-                                um é suportada pelos outros onze. O ataque a um é o ataque a todos.</p>
+                                um é suportada por todos os outros. O ataque a um é o ataque a todos.</p>
                         </li>
                         <li>
                             <span class="law-number">VI.</span>
-                            <p><strong>A Lei do Equilíbrio:</strong> Todos os doze possuem o mesmo peso nas decisões
+                            <p><strong>A Lei do Equilíbrio:</strong> Todos os integrantes possuem o mesmo peso nas
+                                decisões
                                 triviais. Em impasses absolutos, uma votação direta decide; a maioria dita o destino.
                             </p>
                         </li>
@@ -353,19 +354,22 @@
                 </div>
             </section>
 
-            <!-- Premiação Tab -->
+            <!-- O Jogo Tab -->
             <section id="premiacao" class="tab-content">
                 <div class="glass-panel">
-                    <h2>Premiação Semanal</h2>
-                    <p class="manifesto">O jogo da Junção recompensa quem se dedica.<br>Apenas o mais forte leva o
-                        prêmio.</p>
+                    <h2>O Jogo da Junção</h2>
 
                     <div class="prize-highlight">
                         <div class="prize-badge">
                             <span class="prize-value">R$ 20</span>
-                            <span class="prize-freq">toda sexta-feira</span>
+                            <span class="prize-freq">por pessoa (toda sexta-feira)</span>
                         </div>
                     </div>
+
+                    <h3 class="rules-title">Como Funciona</h3>
+                    <p class="manifesto" style="margin-bottom: 2.5rem;">O jogo da Junção recompensa quem se
+                        dedica.<br>Apenas o mais forte leva o
+                        prêmio. Jogue durante a semana e acumule pontos para vencer a premiação de sexta-feira.</p>
 
                     <h3 class="rules-title">Regulamento Oficial</h3>
                     <ul class="laws-list">
@@ -438,7 +442,7 @@
                     <p class="manifesto">Os melhores jogadores de Ping Pong. O ranking reseta toda sexta-feira Ã s
                         00:00.</p>
                     <div class="rules-container" id="ranking-container">
-                        <p style="text-align:center; color: var(--text-muted);">Carregando ranking...</p>
+                        <p style="text-align:center; color: var(--muted);">Carregando ranking...</p>
                     </div>
                     <div style="text-align: center; margin-top: 20px;">
                         <a href="http://juncaogame.ct.ws/jogo" target="_blank" class="btn-join"
@@ -468,6 +472,8 @@
         </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
     <script src="script.js"></script>
 </body>
 

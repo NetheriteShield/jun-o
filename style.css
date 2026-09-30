@@ -1,4 +1,4 @@
-﻿/* == TOKENS ============================================ */
+/* == TOKENS ============================================ */
 :root {
     --bg: #050505;
     --card-bg: #0a0a0a;
@@ -685,7 +685,7 @@ h2 {
     width: 40px;
     text-align: center;
     margin-right: 15px;
-    color: var(--accent);
+    color: var(--gold);
 }
 
 .ranking-info {
@@ -696,11 +696,11 @@ h2 {
 
 .ranking-info strong {
     font-size: 1.1rem;
-    color: var(--text-light);
+    color: var(--text);
 }
 
 .ranking-info small {
-    color: var(--text-muted);
+    color: var(--muted);
 }
 
 .ranking-score {
@@ -711,9 +711,9 @@ h2 {
 
 .ranking-score strong {
     font-size: 1.2rem;
-    color: var(--accent);
+    color: var(--gold);
 }
 
 .ranking-score small {
-    color: var(--text-muted);
+    color: var(--muted);
 }
