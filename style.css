@@ -745,3 +745,146 @@ h2 {
     transform: translateY(0);
     box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3);
 }
+
+
+```css
+/* == O QUE NÃO SOMOS =================================== */
+
+.what-we-are-not {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+}
+
+.section-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 2.2rem;
+    box-shadow: 0 0 12px rgba(197, 160, 89, 0.35);
+}
+
+.section-subtitle {
+    color: var(--muted);
+    font-size: .88rem;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+}
+
+.not-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.not-item {
+    display: grid;
+    grid-template-columns: 2.8rem 1fr;
+    gap: 1rem;
+    padding: 1.25rem .5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background .25s ease, padding-left .25s ease;
+}
+
+.not-item:first-child {
+    border-top: 1px solid var(--border);
+}
+
+.not-item:hover {
+    background: rgba(197, 160, 89, 0.035);
+    padding-left: 1rem;
+}
+
+.not-number {
+    font-family: var(--font-head);
+    color: var(--gold);
+    font-size: .9rem;
+    padding-top: .15rem;
+}
+
+.not-item strong {
+    display: block;
+    color: var(--text);
+    font-family: var(--font-head);
+    font-size: .9rem;
+    letter-spacing: .04em;
+    margin-bottom: .25rem;
+}
+
+.not-item p {
+    color: #999;
+    font-size: .86rem;
+    line-height: 1.7;
+}
+
+.closing-statement {
+    margin: 3.5rem auto 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--border-gold);
+    border-bottom: 1px solid var(--border-gold);
+    position: relative;
+    max-width: 650px;
+}
+
+.closing-statement p {
+    font-family: var(--font-head);
+    color: var(--gold-light);
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    line-height: 1.8;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.closing-statement span {
+    color: var(--gold);
+    font-family: Georgia, serif;
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.closing-statement span:first-child {
+    position: absolute;
+    left: .5rem;
+    top: .8rem;
+}
+
+.closing-statement span:last-child {
+    position: absolute;
+    right: .5rem;
+    bottom: .2rem;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+
+    .what-we-are-not {
+        margin-top: 3rem;
+        padding-top: 2rem;
+    }
+
+    .not-item {
+        grid-template-columns: 2.2rem 1fr;
+        gap: .7rem;
+        padding: 1.1rem .2rem;
+    }
+
+    .not-item:hover {
+        padding-left: .5rem;
+    }
+
+    .not-item strong {
+        font-size: .8rem;
+    }
+
+    .not-item p {
+        font-size: .8rem;
+    }
+
+    .closing-statement {
+        margin-top: 2.5rem;
+        padding: 1.5rem 1rem;
+    }
+}
+
+```
